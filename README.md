@@ -19,6 +19,12 @@ Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
+Activate unattended upgrades:
+```shell
+dpkg-reconfigure -plow unattended-upgrades
+```
+
+
 Install Wireguard:
 ```shell
 apt install wireguard
