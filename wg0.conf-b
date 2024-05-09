@@ -1,0 +1,12 @@
+# /etc/wireguard/wg0.conf
+
+# local settings for Host B
+[Interface]
+PrivateKey = ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBFA=
+Address = x.x.x.x/32
+ListenPort = 51820
+
+# remote settings for Endpoint A
+[Peer]
+PublicKey = ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBFA=
+AllowedIPs = x.x.x.x/32
