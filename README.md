@@ -2,14 +2,28 @@
 Private Wireguard VPN. Always exit from your trusted home network, rather than untrusted VPN providers.
 
 
-## Installation Steps:
-On both the endpoint client and the wg host
+## Server Installation Steps:
 
-Install Unattended Upgrades:
+### Disable root Bash history
+```shell
+echo "HISTFILESIZE=0" >> ~/.bashrc
+history -c; history -w
+source ~/.bashrc
+```
+
+### Disable root ssh login
+```shell
+sed -i -E 's/^(#)?PermitRootLogin (prohibit-password|yes)/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -i -E 's/^(#)?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+systemctl restart ssh
+```
+
+### Install Unattended Upgrades:
 ```shell
 apt install unattended-upgrades
 ```
 
+### Configure unnatended upgrades
 vim /etc/apt/apt.conf.d/50unattended-upgrades and change the following:
 ```shell
 Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
@@ -19,25 +33,27 @@ Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
 Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ```
 
-Activate unattended upgrades:
+### Activate unattended upgrades:
 ```shell
 dpkg-reconfigure -plow unattended-upgrades
 ```
 
-
-Install Wireguard:
+### Install Wireguard:
 ```shell
 apt install wireguard
 ```
 
-Generate keys endpoint-a:
+### Generate keys wg-server:
 ```shell
-wg genkey > endpoint-a.key
-wg pubkey < endpoint-a.key > endpoint-a.pub
+wg genkey > wg-server.key
+wg pubkey < wg-server.key > wg-server.pub
 ```
 
-Generate keys host--b:
+
+## Host Installation Steps:
+
+### Generate keys wg-host:
 ```shell
-wg genkey > host-b.key
-wg pubkey < host-b.key > host-b.pub
+wg genkey > wg-host.key
+wg pubkey < wg-host.key > wg-host.pub
 ```
