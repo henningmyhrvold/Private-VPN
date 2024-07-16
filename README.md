@@ -18,6 +18,13 @@ sed -i -E 's/^(#)?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ss
 systemctl restart ssh
 ```
 
+### Install Python, Pip & Ansible:
+```shell
+apt install python3 python3-pip pipx
+pipx ensurepath
+pipx install ansible
+```
+
 ### Install Unattended Upgrades:
 ```shell
 apt install unattended-upgrades
@@ -45,8 +52,8 @@ apt install wireguard
 
 ### Generate keys wg-server:
 ```shell
-wg genkey > wg-server.key
-wg pubkey < wg-server.key > wg-server.pub
+wg genkey | tee wg-server.key | wg pubkey > wg-server.pub
+wg genpsk > peerA-B.psk
 ```
 
 
@@ -54,6 +61,5 @@ wg pubkey < wg-server.key > wg-server.pub
 
 ### Generate keys wg-host:
 ```shell
-wg genkey > wg-host.key
-wg pubkey < wg-host.key > wg-host.pub
+wg genkey | tee wg-host.key | wg pubkey > wg-host.pub
 ```
