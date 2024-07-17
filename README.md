@@ -2,6 +2,23 @@
 Private Wireguard VPN. Always exit from your trusted home network, rather than untrusted VPN providers.
 
 
+## Ansible control node:
+In my case an macbook laptop.
+### Install Ansible:
+```shell
+brew update
+brew install ansible
+```
+
+## Ansible managed wireguard node:
+In this case, an minimal debian 12 linux machine with only an ssh server installed. 
+
+### Install Python:
+```shell
+apt update
+apt install python3 
+```
+
 ## Server Installation Steps:
 
 ### Disable root Bash history
@@ -16,13 +33,6 @@ source ~/.bashrc
 sed -i -E 's/^(#)?PermitRootLogin (prohibit-password|yes)/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -i -E 's/^(#)?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 systemctl restart ssh
-```
-
-### Install Python, Pip & Ansible:
-```shell
-apt install python3 python3-pip pipx
-pipx ensurepath
-pipx install ansible
 ```
 
 ### Install Unattended Upgrades:
