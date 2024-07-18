@@ -9,6 +9,12 @@ In my case an macbook laptop.
 brew update
 brew install ansible
 ```
+### SSH key generation:
+Give the key a usfull name, like wireguard
+```shell
+ssh-keygen -t ed25519 -C "wireguard"
+ssh-copy-id -i wireguard <user>@<ip>
+```
 
 ## Ansible managed wireguard node:
 In this case, an minimal debian 12 linux machine with only an ssh server installed. 
